@@ -10,8 +10,12 @@ import SelectCategory from "./_component/SelectCategory";
 import TopicDescription from "./_component/TopicDescription";
 import SelectOption from "./_component/SelectOption";
 import UserInputContext from "../_context/UserInputContext";
+import {GenerateCourseLayout_AI} from "../../../configs/AiModels";
+import LoadingDialog from "./_component/LoadingDialog";
+
 function CreateCourse() {
-  const {userCourseInput, setUserCourseInput}= useContext(UserInputContext)
+  const [loading, setLoading] = useState(true);
+  const { userCourseInput, setUserCourseInput } = useContext(UserInputContext);
   const StepperOptions = [
     {
       id: 1,
@@ -30,9 +34,50 @@ function CreateCourse() {
     },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
-  useEffect(()=>{
+  useEffect(() => {
+    console.log(userCourseInput);
+  }, [userCourseInput]);
+  // To check if the next button is active or not
+  const checkStatus = () => {
+    if (userCourseInput?.length == 0) {
+      return true;
+    }
+    if (
+      activeIndex == 0 &&
+      (userCourseInput?.category?.length == 0 ||
+        userCourseInput?.category == undefined)
+    ) {
+      return true;
+    }
+    if (
+      activeIndex == 1 &&
+      (userCourseInput?.topic?.length == 0 ||
+        userCourseInput?.topic == undefined)
+    ) {
+      return true;
+    } else if (
+      activeIndex == 2 &&
+      (userCourseInput?.level == undefined ||
+        userCourseInput?.duration == undefined ||
+        userCourseInput?.displayVideo == undefined ||
+        userCourseInput?.chapters == undefined)
+    ) {
+      return true;
+    }
+    return false;
+  };
 
-  }, [userCourseInput])
+  const GenerateCourseLayout=async()=>{
+    setLoading(true);
+    const BASIC_PROMPT= 'Generate a course tutorial with the following details: Course Name, Description, Along with chapter name, about, and duration.';
+    const USER_INPUT_PROMPT= 'Category: '+userCourseInput?.category+', Topic: '+userCourseInput?.topic+', Description: '+userCourseInput?.description+' Level: '+userCourseInput?.level+', Duration: '+userCourseInput?.duration+', noOfChapter: '+userCourseInput?.chapters+' in JSON format';
+    const FINAL_PROMPT= BASIC_PROMPT + USER_INPUT_PROMPT;
+    console.log(FINAL_PROMPT);
+    const result = await GenerateCourseLayout_AI.sendMessage(FINAL_PROMPT);
+    console.log(result.response?.text());
+    console.log(JSON.parse(result.response?.text()));
+    setLoading(false);
+  }
   return (
     <div>
       {/* Stepper */}
@@ -62,20 +107,41 @@ function CreateCourse() {
       </div>
       <div className="mx-10 md:px-20 lg:px-44 mt-10 items-center">
         {/* Component */}
-{activeIndex==0?<SelectCategory/>:activeIndex==1?<TopicDescription/>:<SelectOption/>}
+        {activeIndex == 0 ? (
+          <SelectCategory />
+        ) : activeIndex == 1 ? (
+          <TopicDescription />
+        ) : (
+          <SelectOption />
+        )}
         {/* Next Previous Button */}
         <div className="flex justify-between mt-10">
           <Button
             disabled={activeIndex == 0}
             onClick={() => setActiveIndex(activeIndex - 1)}
-            variant='outline'
+            variant="outline"
           >
             Previous
           </Button>
-          {activeIndex<2 &&<Button onClick={() => setActiveIndex(activeIndex + 1)}>Next</Button>}
-          {activeIndex==2&&<Button onClick={() => setActiveIndex(activeIndex + 1)}>Generate Course Layout</Button>}
+          {activeIndex < 2 && (
+            <Button
+              disabled={checkStatus()}
+              onClick={() => setActiveIndex(activeIndex + 1)}
+            >
+              Next
+            </Button>
+          )}
+          {activeIndex == 2 && (
+            <Button
+              disabled={checkStatus()}
+              onClick={() => GenerateCourseLayout()}
+            >
+              Generate Course Layout
+            </Button>
+          )}
         </div>
       </div>
+      <LoadingDialog loading={loading} />
     </div>
   );
 }
