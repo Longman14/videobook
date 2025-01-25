@@ -14,7 +14,7 @@ import {GenerateCourseLayout_AI} from "../../../configs/AiModels";
 import LoadingDialog from "./_component/LoadingDialog";
 
 function CreateCourse() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { userCourseInput, setUserCourseInput } = useContext(UserInputContext);
   const StepperOptions = [
     {

@@ -6,11 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "tsx ./configs/migrate.jsx"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.3",
     "@google/generative-ai": "^0.21.0",
+    "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-alert-dialog": "^1.1.5",
     "@radix-ui/react-progress": "^1.1.1",
     "@radix-ui/react-select": "^2.1.4",
@@ -18,8 +23,11 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.9.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.38.4",
     "lucide-react": "^0.469.0",
     "next": "^14.1.0",
+    "pg": "^8.13.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.4.0",
@@ -29,12 +37,15 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/pg": "^8.11.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "drizzle-kit": "^0.30.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }

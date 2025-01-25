@@ -18,7 +18,7 @@ function LoadingDialog({ loading }) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogDescription>
-            <div>
+            <div className="flex flex-col items-center py-10 gap-2">
                 <Image src={'/rocket.gif'} width={100} height={100}/>
                 <h2>Please wait while your course is generated...</h2>
             </div>
