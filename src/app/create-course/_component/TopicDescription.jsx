@@ -20,7 +20,7 @@ function TopicDescription() {
           Write the topic for which you want to generate a course (e.g., Yoga,
           Javascript, etc.)
         </label>
-        <Input placeholder="Topic" className="h-14 text-xl"
+        <Input placeholder="Topic" className="h-14 text-xl mt-2"
         onChange={(e)=>handleInputChange('topic', e.target.value)}
         defaultValue={userCourseInput?.topic}/>
       </div>
@@ -29,7 +29,7 @@ function TopicDescription() {
           Tell us more about your course. What would you like to include in the
           course? (Optional)
         </label>
-        <Textarea placeholder="About Your Course" className="h-24 text-xl"
+        <Textarea placeholder="About Your Course" className="h-24 text-xl mt-2"
         onChange={(e)=>handleInputChange('description', e.target.value)} 
         defaultValue={userCourseInput?.description}/>
       </div>

@@ -1,16 +1,3 @@
-// import { neon } from '@neondatabase/serverless';
-// import { drizzle } from 'drizzle-orm/neon-http';
-// import { config } from 'dotenv';
-// config();
-
-// config({path: '.env.local' });
-
-// const sql = neon(process.env.NEXT_PUBLIC_DB_CONNECTION_STRING!);
-
-// const db = drizzle(sql)
-// export {db}
-
-
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { config } from 'dotenv';
