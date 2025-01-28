@@ -38,14 +38,16 @@ function SideBar() {
         <Image src={"/logo.svg"} width={120} height={120} style={{ paddingLeft: '50px' }}/>
         <hr className='mb-5'/>
         <ul>
+        {/* eslint-disable react/jsx-key */}
             {Menu.map((item, index)=>(
                 <Link href={item.path}>
-                <div key={index} className={`flex items-center gap-2 text-gray-600 p-3 cursor-pointer hover:text-black hover:bg-gray-100 rounded-lg mb-3 ${item.path==path&&'bg-gray-100 text-black'}`}>
+                <div key={item.id} className={`flex items-center gap-2 text-gray-600 p-3 cursor-pointer hover:text-black hover:bg-gray-100 rounded-lg mb-3 ${item.path==path&&'bg-gray-100 text-black'}`}>
                     <div className='text-2xl'>{item.icon}</div>
                     <h2>{item.name}</h2>
                 </div>
                 </Link>
             ))}
+            {/* eslint-enable react/jsx-key */}
         </ul>
         <div className='absolute bottom-10 w-[80%]'>
             <Progress value={33}/>

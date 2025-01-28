@@ -118,7 +118,7 @@ const SaveCourseLayoutInDb= async(courseLayout)=>{
         <h2 className="text-4xl font-medium text-primary">Create a Course</h2>
         <div className="flex mt-10">
           {StepperOptions.map((item, index) => (
-            <div key={index} className="flex items-center">
+            <div key={item.id} className="flex items-center">
               <div className="flex flex-col items-center w-[50px] md:w-[100px]">
                 <div
                   className={`bg-gray-200 p-3 rounded-full text-white ${activeIndex >= index && "bg-primary"}`}
