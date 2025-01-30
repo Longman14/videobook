@@ -17,11 +17,32 @@ import { db } from "../../../../../configs/db";
 import { CourseList } from "../../../../../configs/schema";
 import { and, eq } from "drizzle-orm";
 
-function EditChapterInfo({ course, index }) {
+function EditChapterInfo({ course, index, refreshData }) {
+  const CourseChapter = course?.courseOutput?.chapters;
+  const [name, setName] = useState([]);
+  const [about, setAbout] = useState();
+  useEffect(() => {
+    setName(CourseChapter[index].chapterName);
+    setAbout(CourseChapter[index].about);
+  }, [course]);
+
+    const onUpdateHandler = async () => {
+      course.courseOutput.chapters[index].chapterName = name;
+      course.courseOutput.chapters[index].about = about;
+const result = await db
+      .update(CourseList)
+      .set({
+        courseOutput: course?.courseOutput,
+      })
+      .where(eq(CourseList.id, course?.id))
+      .returning({ id: CourseList.id });
+      console.log(CourseChapter[index].chapterName)
+      console.log(result);
+      refreshData(true)
+    };
   return (
     <Dialog>
       <DialogTrigger>
-        {" "}
         <HiPencilSquare />
       </DialogTrigger>
       <DialogContent>
@@ -31,7 +52,7 @@ function EditChapterInfo({ course, index }) {
             <div className="mt-3">
               <label htmlFor="">Course Title</label>
               <Input
-                defaultValue={course?.courseOutput?.courseName}
+                defaultValue={CourseChapter[index].chapterName}
                 onChange={(event) => setName(event?.target.value)}
               />
             </div>
@@ -39,12 +60,18 @@ function EditChapterInfo({ course, index }) {
               <label htmlFor="">Description</label>
               <Textarea
                 className="h-40"
-                defaultValue={course?.courseOutput?.description}
-                onChange={(event) => setDescription(event?.target.value)}
+                defaultValue={CourseChapter[index].about}
+                onChange={(event) => setAbout(event?.target.value)}
+                
               />
             </div>
           </DialogDescription>
         </DialogHeader>
+        <DialogFooter>
+          <DialogClose>
+            <Button onClick={onUpdateHandler}>Update</Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

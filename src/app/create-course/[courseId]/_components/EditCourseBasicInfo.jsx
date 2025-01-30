@@ -17,7 +17,7 @@ import { db } from "../../../../../configs/db";
 import { CourseList } from "../../../../../configs/schema";
 import { and, eq } from "drizzle-orm";
 
-function EditCourseBasicInfo({ course }) {
+function EditCourseBasicInfo({ course, refreshData }) {
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   useEffect(() => {
@@ -35,7 +35,8 @@ function EditCourseBasicInfo({ course }) {
       })
       .where(eq(CourseList.id, course?.id))
       .returning({ id: CourseList.id });
-    console.log(result);
+      refreshData(true)
+   
   };
   return (
     <Dialog>

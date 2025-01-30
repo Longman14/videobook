@@ -40,15 +40,23 @@ function CoursePage({ params }) {
 
       {/* Basic info */}
 
-      <CourseBasicInfo course={course} />
+      <CourseBasicInfo
+        course={course}
+        refreshData={() => {
+          GetCourse();
+        }}
+      />
       {/* Course content */}
 
       <CourseDetail course={course} />
 
-
       {/* List of Lesson */}
-        <ChapterList course={course }/>
-
+      <ChapterList
+        course={course}
+        refreshData={() => {
+          GetCourse();
+        }}
+      />
     </div>
   );
 }
