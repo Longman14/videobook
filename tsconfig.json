@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/(auth)/sign-in/[[...sign-in]]/page.tsx", "src/app/dashboard/layout.jsx"  ],
+, "src/app/(auth)/sign-in/[[...sign-in]]/page.tsx", "src/app/dashboard/layout.jsx", "configs/supabaseServer.jsx"  ],
   "exclude": [
     "node_modules"
   ]

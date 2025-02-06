@@ -7,6 +7,7 @@ import { and, eq } from "drizzle-orm";
 import CourseBasicInfo from "./_components/CourseBasicInfo";
 import CourseDetail from "./_components/CourseDetail";
 import ChapterList from "./_components/ChapterList";
+import { Button } from "@/components/ui/button";
 
 function CoursePage({ params }) {
   const { user } = useUser();
@@ -33,7 +34,14 @@ function CoursePage({ params }) {
       console.error("Error fetching course:", error);
     }
   };
-
+// Generating chapter content
+const GenerateChapterContent =()=>{
+  const chapters=course?.courseOutput?.chapters;
+  chapters.forEach((chapter, index)=>{
+    const PROMPT = 'Explain the concept in detail on Topic: '+course?.courseOutput?.courseName+', Chapter: '+chapter?.chapterName+' in JSON format with list of array with field as title, explanation on given chapter in detail, Code example (code field <precode> format) if applicable';
+    console.log(PROMPT); 
+  })
+}
   return (
     <div className="mt-10 px-7 md:px-20 lg:px:44">
       <h2 className="text-center font-bold text-2xl">Course Layout</h2>
@@ -57,6 +65,8 @@ function CoursePage({ params }) {
           GetCourse();
         }}
       />
+
+      <Button className="my-10 flex justify-self-end" onClick={GenerateChapterContent}>Generate Course Content</Button>
     </div>
   );
 }
