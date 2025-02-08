@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlinePuzzlePiece } from "react-icons/hi2";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
 import { storage } from "../../../../../configs/appwriteSetup";
@@ -12,6 +12,12 @@ import { eq } from "drizzle-orm";
 
 function CourseBasicInfo({ course, refreshData }) {
   const [selectedFile, setSelectedFile] = useState();
+
+  useEffect(() => {
+    if (course) {
+      setSelectedFile(course?.courseBanner);
+    }
+  }, [course]);
 
   const onFileSelected = async (event) => {
     const file = event.target.files[0];

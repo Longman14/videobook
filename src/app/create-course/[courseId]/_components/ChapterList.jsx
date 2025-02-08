@@ -10,7 +10,7 @@ function ChapterList({ course, refreshData }) {
       <div className="mt-2">
         {course?.courseOutput?.chapters.map((chapter, index) => (
           <div
-            key={chapter.id}
+            key={index}
             className="border p-5 rounded-lg mb-2 flex items-center justify-between"
           >
             <div className="flex gap-5 items-center">
