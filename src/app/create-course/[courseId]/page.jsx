@@ -49,7 +49,7 @@ function CoursePage({ params }) {
 
     try {
       const contentPromises = chapters.map(async (chapter, index) => {
-        if (index < 2) { // Limit to first 2 chapters
+        if (index ==0) { // Limit to first 2 chapters
           const PROMPT = `Explain the concept in detail on Topic: ${course?.courseOutput?.courseName}, Chapter: ${chapter?.chapterName} in JSON format with list of array with fields: title, explanation, and code example (<precode> format) if applicable.`;
 
           console.log(PROMPT);
@@ -76,10 +76,11 @@ function CoursePage({ params }) {
             chapterId: index,
             courseId: course?.courseId,
             title: chapter.chapterName,
-            content: content,
+            content: JSON.stringify(content),
             videoId: videoId,  // If videoId exists, it is stored
             playlistId: playlistId, // If playlistId exists, it is stored
-          });
+          })
+          ;
         }
       });
 
@@ -87,6 +88,9 @@ function CoursePage({ params }) {
       await Promise.all(contentPromises);
 
       setLoading(false);
+      await db.update(CourseList).set({
+        publish: true
+      })
       router.replace(`/create-course/${course?.courseId}/finish`);
     } catch (error) {
       setLoading(false);
