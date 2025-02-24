@@ -49,7 +49,7 @@ function CoursePage({ params }) {
 
     try {
       const contentPromises = chapters.map(async (chapter, index) => {
-        if (index ==0) { // Limit to first 2 chapters
+        // if (index ==0) { // Limit to first 2 chapters
           const PROMPT = `Explain the concept in detail on Topic: ${course?.courseOutput?.courseName}, Chapter: ${chapter?.chapterName} in JSON format with list of array with fields: title, explanation, and code example (<precode> format) if applicable.`;
 
           console.log(PROMPT);
@@ -81,7 +81,7 @@ function CoursePage({ params }) {
             playlistId: playlistId, // If playlistId exists, it is stored
           })
           ;
-        }
+        // }
       });
 
       // Wait for all content promises to resolve

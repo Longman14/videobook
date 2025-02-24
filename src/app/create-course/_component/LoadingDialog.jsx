@@ -14,6 +14,7 @@ import Image from "next/image";
 
 function LoadingDialog({ loading }) {
   return (
+    <div>
     <AlertDialog open={loading}>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -26,6 +27,8 @@ function LoadingDialog({ loading }) {
         </AlertDialogHeader>
       </AlertDialogContent>
     </AlertDialog>
+
+    </div>
   );
 }
 
