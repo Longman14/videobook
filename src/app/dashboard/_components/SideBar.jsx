@@ -1,11 +1,13 @@
 "use client"
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
 import { HiOutlineShieldCheck, HiOutlineSquare3Stack3D, HiOutlineHome, HiOutlinePower } from 'react-icons/hi2'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Progress } from '@/components/ui/progress'
+import { UserCourseListContext } from '@/app/_context/UserCourseListContext'
 function SideBar() {
+    const {userCourseList, setUserCourseList} =useContext(UserCourseListContext)
     const Menu = [
         {
             id:1,
@@ -50,8 +52,8 @@ function SideBar() {
             {/* eslint-enable react/jsx-key */}
         </ul>
         <div className='absolute bottom-10 w-[80%]'>
-            <Progress value={33}/>
-            <h2 className='text-sm my-2'>3 Out of 5 Courses Created</h2>
+            <Progress value={(userCourseList?.length/5)*100}/>
+            <h2 className='text-sm my-2'>{userCourseList?.length} Out of 5 Courses Created</h2>
             <h2 className='text-xs text-gray-500'>Upgrade your plan for unlimited course generation</h2>
         </div>
     </div>

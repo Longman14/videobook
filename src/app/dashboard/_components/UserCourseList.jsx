@@ -1,22 +1,25 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { db } from '../../../../configs/db'
 import { CourseList } from '../../../../configs/schema'
 import { useUser } from '@clerk/nextjs';
 import { useEffect } from 'react';
 import { eq } from 'drizzle-orm';
 import CourseCard from './CourseCard';
+import { UserCourseListContext } from '@/app/_context/UserCourseListContext';
 
 function UserCourseList() {
   const {user} = useUser();
   const [courseList, setCourseList] = useState([]);
+  const {userCourseList, setUserCourseList} = useContext(UserCourseListContext);
 
   useEffect(() => {
     user&&getUserCourses();
   }, [user]);
   const getUserCourses=async ()=>{
     const result = await db.select().from(CourseList).where(eq(CourseList.createdBy, user?.primaryEmailAddress?.emailAddress));
-   setCourseList(result)
+   setCourseList(result);
+   setUserCourseList(result);
   }
   return (
     <div className='mt-10'>
@@ -24,9 +27,17 @@ function UserCourseList() {
         My AI Courses
       </h2>
       <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-        {courseList?.map((course, index) =>(
+        {courseList.length>0? courseList?.map((course, index) =>(
           <CourseCard course={course} key={index} refreshdata={()=>getUserCourses()} />
-        ))}
+        )):
+        
+         [1,2,3,4,5 ].map((item, index)=>(
+          <div key={index} className='w-full mt-5 bg-slate-200 animate-pulse rounded-lg h-[270px]'>
+
+            </div>
+         ))
+        
+      }
       </div>
     </div>
   )

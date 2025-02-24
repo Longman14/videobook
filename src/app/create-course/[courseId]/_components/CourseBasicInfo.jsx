@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { HiOutlinePuzzlePiece } from "react-icons/hi2";
+import { HiOutlinePuzzlePiece, HiPencilSquare } from "react-icons/hi2";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
 import { storage } from "../../../../../configs/appwriteSetup";
 import { ID } from "appwrite";
@@ -10,7 +10,7 @@ import { db } from "../../../../../configs/db";
 import { CourseList } from "../../../../../configs/schema";
 import { eq } from "drizzle-orm";
 
-function CourseBasicInfo({ course, refreshData }) {
+function CourseBasicInfo({ course, refreshData, edit = true}) {
   const [selectedFile, setSelectedFile] = useState();
 
   useEffect(() => {
@@ -73,10 +73,12 @@ function CourseBasicInfo({ course, refreshData }) {
         <div>
           <h2 className="font-bold text-3xl">
             {course?.courseOutput?.courseName}
-            <EditCourseBasicInfo
-              course={course}
-              refreshData={() => refreshData(true)}
-            />
+            {edit && (
+              <EditCourseBasicInfo
+                course={course}
+                refreshData={async () => refreshData(true)}
+              />
+            )}
           </h2>
           <p className="text-sm text-gray-400 mt-3">
             {course?.courseOutput?.description}
@@ -87,8 +89,11 @@ function CourseBasicInfo({ course, refreshData }) {
           <Button className="w-full mt-5">Start</Button>
         </div>
 
-        <div>
-          <label htmlFor="upload-image">
+        <div className="relative">
+         {edit && <label htmlFor="upload-image" className="absolute top-2 right-2 z-10 p-2 bg-white rounded-full shadow-sm cursor-pointer hover:bg-gray-100 transition-colors">
+            <HiPencilSquare className="w-6 h-6 text-gray-600 hover:text-gray-800" />
+          </label>}
+          <label htmlFor="upload-image" className="block">
             <Image
               src={selectedFile ? selectedFile : "/course1.jpg"}
               width={300}
@@ -96,12 +101,12 @@ function CourseBasicInfo({ course, refreshData }) {
               className="w-full rounded-xl h-[300px] object-contain cursor-pointer"
             />
           </label>
-          <input
+         {edit && <input
             type="file"
             id="upload-image"
             className="opacity-0"
             onChange={onFileSelected}
-          />
+          />}
         </div>
       </div>
     </div>
