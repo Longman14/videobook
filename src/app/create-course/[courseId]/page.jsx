@@ -73,14 +73,12 @@ function CoursePage({ params }) {
 
           // Save chapter content & video URL in the database
           await db.insert(Chapters).values({
-            chapterId: index,
             courseId: course?.courseId,
-            title: chapter.chapterName,
-            content: JSON.stringify(content),
+            chapterName: chapter.chapterName, // Use chapter.chapterName from courseOutput
+            content: content, // Store the parsed JSON content
             videoId: videoId,  // If videoId exists, it is stored
             playlistId: playlistId, // If playlistId exists, it is stored
-          })
-          ;
+          });
         // }
       });
 

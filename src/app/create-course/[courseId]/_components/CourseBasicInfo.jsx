@@ -9,6 +9,7 @@ import { ID } from "appwrite";
 import { db } from "../../../../../configs/db";
 import { CourseList } from "../../../../../configs/schema";
 import { eq } from "drizzle-orm";
+import Link from "next/link";
 
 function CourseBasicInfo({ course, refreshData, edit = true}) {
   const [selectedFile, setSelectedFile] = useState();
@@ -86,7 +87,9 @@ function CourseBasicInfo({ course, refreshData, edit = true}) {
           <h2 className="font-medium mt-2 flex gap-2 items-center text-primary">
             <HiOutlinePuzzlePiece /> {course?.category}
           </h2>
+         {!edit && <Link href={"/course/"+course?.courseId+"/start"}>
           <Button className="w-full mt-5">Start</Button>
+          </Link>}
         </div>
 
         <div className="relative">

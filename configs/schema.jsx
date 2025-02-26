@@ -16,10 +16,10 @@ export const CourseList = pgTable('courseList', {
 })
 
 export const Chapters = pgTable('chapters', {
-    id:serial('id').primaryKey(),
-    courseId:varchar('courseId').notNull(),
-    chapterId:integer('chapterId').notNull(),
-    content:json('content').notNull(),
+    id: serial('id').primaryKey(),
+    courseId: varchar('courseId').notNull(),
+    chapterName: varchar('chapterName').notNull(), // Add this column
+    content: json('content').notNull(),
     videoId: varchar('videoId'),
     playlistId: varchar('playlistId')
-})
+  });

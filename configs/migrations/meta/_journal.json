@@ -8,6 +8,13 @@
       "when": 1737794574620,
       "tag": "0000_lethal_xorn",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1740603544856,
+      "tag": "0001_outstanding_loki",
+      "breakpoints": true
     }
   ]
 }
