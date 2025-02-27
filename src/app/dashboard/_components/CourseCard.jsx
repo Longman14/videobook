@@ -52,7 +52,8 @@ function CourseCard({ course, refreshdata, userProfile=false, edit=true }) {
             <div className="flex items-center gap-2 mt-3 justify-between">
               <Image src={course?.userProfileImage} width={35} height={35}
               className="rounded-full"/>
-              <h2 className="text-sm">{course?.userName}</h2>
+              <h2 className="text-sm">
+                By: {course?.userName}</h2>
             </div>)}
       </div>
     </div>

@@ -27,12 +27,7 @@ function SideBar() {
             icon:<HiOutlineShieldCheck/>,
             path:'/dashboard/upgrade'
         },
-        {
-            id:4,
-            name: 'Logout',
-            icon:<HiOutlinePower/>,
-            path:'/dashboard/logout'
-        }
+        
         ]
         const path = usePathname();
   return (

@@ -17,7 +17,7 @@ function Hero() {
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-      <Link href={'/dashboard'} passHref>
+      <Link href={'/dashboard'} >
         <Button
           className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-secondary focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
         >

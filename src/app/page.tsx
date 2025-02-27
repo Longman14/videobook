@@ -12,7 +12,7 @@ import Hero from "./_components/Hero.jsx";
 
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-blue-800">
       <Header />
       <Hero />
     
