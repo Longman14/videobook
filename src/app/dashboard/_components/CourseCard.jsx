@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 
 
-function CourseCard({ course, refreshdata }) {
+function CourseCard({ course, refreshdata, userProfile=false, edit=true }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const handleOnDelete = async() => {
     if(isDeleting) return;
@@ -34,7 +34,7 @@ function CourseCard({ course, refreshdata }) {
         <h2 className="font-medium text-md flex justify-between items-center">
           {course?.courseOutput?.courseName}
           <DropdownOption handleOnDelete={()=>handleOnDelete()}>
-            <HiMiniEllipsisVertical />
+           {edit && <HiMiniEllipsisVertical />}
           </DropdownOption>
         </h2>
         <p className="text-sm text-gray-400 my-1">{course?.category}</p>
@@ -46,7 +46,14 @@ function CourseCard({ course, refreshdata }) {
           <h2 className="text-sm bg-purple-50 text-primary p-1 rounded-sm">
             {course?.level}
           </h2>
+          
         </div>
+        {userProfile && (
+            <div className="flex items-center gap-2 mt-3 justify-between">
+              <Image src={course?.userProfileImage} width={35} height={35}
+              className="rounded-full"/>
+              <h2 className="text-sm">{course?.userName}</h2>
+            </div>)}
       </div>
     </div>
   );

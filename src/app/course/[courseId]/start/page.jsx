@@ -9,6 +9,7 @@ import ChapterContent from "./_components/ChapterContent";
 function CourseStart({ params }) {
   const [course, setCourse] = useState();
   const [selectedChapter, setSelectedChapter] = useState();
+  const [chapterContent, setChapterContent] = useState();
 
   useEffect(() => {
     GetCourse();
@@ -30,10 +31,11 @@ function CourseStart({ params }) {
         .from(Chapters)
         .where(
           and(
-            eq(Chapters.chapterName, chapterName), // Use chapterName as the identifier
+            eq(Chapters.chapterName, chapterName), 
             eq(Chapters.courseId, course.courseId)
           )
         );
+        setChapterContent(result[0]);
         console.log("result is",result);
   };
 
@@ -43,8 +45,8 @@ function CourseStart({ params }) {
   return (
     <div>
       {/* Chapter list side bar */}
-      <div className="md:w-64 hidden md:block h-screen bg-gray-50 border-r shadow-sm">
-        <h2 className="font-medium text-lg bg-primary p-4 text-white">
+      <div className="md:w-72 fixed hidden md:block h-screen bg-gray-50 border-r shadow-sm">
+        <h2 className="font-medium text-lg bg-primary p-6 text-white">
           {course?.courseOutput?.courseName}
         </h2>
         <div>
@@ -65,7 +67,7 @@ function CourseStart({ params }) {
 
       {/* Content div */}
       <div className="md:ml-64">
-        <ChapterContent chapter={selectedChapter} />
+        <ChapterContent chapter={selectedChapter} content={chapterContent} />
       </div>
     </div>
   );
